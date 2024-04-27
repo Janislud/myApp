@@ -7,9 +7,7 @@ import { InputFields } from './components/InputsFields';
 function App() {
     const [message, setMessage] = useState("");
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+
 
     const fetchData = async () => {
         //try {
@@ -19,10 +17,9 @@ function App() {
         //} catch (error) {
         //    console.error('error fetching data:', error);
         //}
-        const result = await Promise.all([axiosInstance.get('/home'), axiosInstance.post('/home')]);
+        const result = await Promise.all([axiosInstance.get('/home')]);
         /* setMessage(result)*/
         console.log(result[0].data.message);
-        console.log(result[1].data.message);
         setMessage(result[0].data.message);
 
         //try {
@@ -45,6 +42,10 @@ function App() {
         
           
     };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <div>
