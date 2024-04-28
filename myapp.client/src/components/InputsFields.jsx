@@ -2,62 +2,113 @@
 import { axiosInstance } from '../config/axios';
 
 export const InputFields = () => {
-    const [inputValue, setInputValue] = useState('');
+    const [inputValues, setInputValues] = useState({
+        inputValue1: '',
+        inputValue2Upper: '',
+        inputValue3Lower: '',
+        inputValue4Negative: ''
+    });
     const [result, setResult] = useState(null);
-    const [error, setError] = useState('');
+    const [resultWithPvn, setResultWithPvn] = useState(null);
+    const [errors, setErrors] = useState({});
 
     const handleChange = (event) => {
-        const value = event.target.value;
-        // Проверка на число от 0 до 99999
-        if (/^\d{0,5}$/.test(value) && parseInt(value) <= 99999) {
-            setInputValue(value);
-            setError(''); // Очищаем ошибку, если ввод корректный
-        } else {
-            setError('Please enter a number between 0 and 99999.');
-        }
+        const { name, value } = event.target;
+        setInputValues({ ...inputValues, [name]: value });
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Если есть ошибка ввода, прерываем отправку запроса
-        if (error) return;
 
-        // отправка значения на бэкенд для умножения на 1.21
+        const isValid = validateInputValues(inputValues);
+        if (!isValid) return;
+
         try {
-            const response = await axiosInstance.post('/home/multiply', { number: inputValue });
+            const response = await axiosInstance.post('/home/process-inputs', inputValues);
             if (response.status === 200) {
-                // если ответ успешен, получить результат
                 const data = response.data;
-                console.log('Result:', data.result);
                 setResult(data.result);
-                setInputValue('');
+                setResultWithPvn(data.resultWithPvn);
             } else {
                 console.error('Error:', response.statusText);
             }
         } catch (error) {
             console.error('Error:', error);
+            console.log('Error Response:', error.response);
         }
+    };
+
+    const validateInputValues = (values) => {
+        const errors = {};
+        // Проверка первого поля
+        if (!/^\d+$/.test(values.inputValue1) || values.inputValue1 < 0 || values.inputValue1 > 99999) {
+            errors.inputValue1 = 'Please enter a number between 0 and 99999.';
+        }
+        // Проверка второго поля
+        if (!/^[A-Z]{3}$/.test(values.inputValue2Upper)) {
+            errors.inputValue2Upper = 'Please enter 3 uppercase letters.';
+        }
+        // Проверка третьего поля
+        if (!/^[a-z]{3}$/.test(values.inputValue3Lower)) {
+            errors.inputValue3Lower = 'Please enter 3 lowercase letters.';
+        }
+        // Проверка четвертого поля
+        if (!/^-\d+$/.test(values.inputValue4Negative) || values.inputValue4Negative > -1 || values.inputValue4Negative < -99999) {
+            errors.inputValue4Negative = 'Please enter a negative number between -1 and -99999.';
+        }
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
     };
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
-
                 <div>
-                    <label>Input:1</label>
+                    <label>Input 1:</label>
                     <input
                         type="text"
-                        value={inputValue}
+                        name="inputValue1"
+                        value={inputValues.inputValue1}
                         onChange={handleChange}
-                        maxLength={5}
                     />
-                    {result !== null && <p>Your result: {result}</p>}
+                    {errors.inputValue1 && <p style={{ color: 'red' }}>{errors.inputValue1}</p>}
                 </div>
-
+                <div>
+                    <label>Input 2 (Uppercase):</label>
+                    <input
+                        type="text"
+                        name="inputValue2Upper"
+                        value={inputValues.inputValue2Upper}
+                        onChange={handleChange}
+                    />
+                    {errors.inputValue2Upper && <p style={{ color: 'red' }}>{errors.inputValue2Upper}</p>}
+                </div>
+                <div>
+                    <label>Input 3 (Lowercase):</label>
+                    <input
+                        type="text"
+                        name="inputValue3Lower"
+                        value={inputValues.inputValue3Lower}
+                        onChange={handleChange}
+                    />
+                    {errors.inputValue3Lower && <p style={{ color: 'red' }}>{errors.inputValue3Lower}</p>}
+                </div>
+                <div>
+                    <label>Input 4 (Negative):</label>
+                    <input
+                        type="text"
+                        name="inputValue4Negative"
+                        value={inputValues.inputValue4Negative}
+                        onChange={handleChange}
+                    />
+                    {errors.inputValue4Negative && <p style={{ color: 'red' }}>{errors.inputValue4Negative}</p>}
+                </div>
                 <button type="submit">Submit</button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
             </form>
-            
+            <div>
+                {result && <p>Result without PVN: {result}</p>}
+                {resultWithPvn && <p>Result with PVN: {resultWithPvn}</p>}
+            </div>
         </div>
     );
 };
