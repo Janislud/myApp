@@ -59,8 +59,11 @@ namespace myApp.Server.Controllers
             var result = sum;
             // Вычисление суммы с учетом НДС
             var resultWithPvn = sum * 1.21;
+            // вычеслаем сумму - ндс 
+            var nds = resultWithPvn - result;
 
-            return Ok(new { result, resultWithPvn });
+
+            return Ok(new { result, resultWithPvn, nds});
         }
     }
 

@@ -40,3 +40,7 @@
 .resultWrapperWithPvn {
     color:green;
 }
+
+.resultWrapper {
+    text-align: center;
+}

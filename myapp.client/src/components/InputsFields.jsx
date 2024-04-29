@@ -11,6 +11,7 @@ export const InputFields = () => {
     });
     const [result, setResult] = useState(null);
     const [resultWithPvn, setResultWithPvn] = useState(null);
+    const [nds, setNds] = useState(null);
     const [errors, setErrors] = useState({});
 
     const handleChange = (event) => {
@@ -30,6 +31,8 @@ export const InputFields = () => {
                 const data = response.data;
                 setResult(data.result);
                 setResultWithPvn(data.resultWithPvn);
+                const netAmount = data.resultWithPvn - data.result;
+                setNds(netAmount);
             } else {
                 console.error('Error:', response.statusText);
             }
@@ -65,11 +68,12 @@ export const InputFields = () => {
         <main>
             <form className={style.formWrapper} onSubmit={handleSubmit}>
                 <div>
-                    <label className={style.labelWrapper}>Input 1 (Positive):</label>
+                    <label className={style.labelWrapper}>Input 1:</label>
                     <input
                         className="form-control me-2"
                         type="text"
                         name="inputValue1"
+                        placeholder=" Positive from 0 - 99999"
                         value={inputValues.inputValue1}
                         onChange={handleChange}
                     />
@@ -109,9 +113,10 @@ export const InputFields = () => {
                     {errors.inputValue4Negative && <p style={{ color: 'red' }}>{errors.inputValue4Negative}</p>}
                 </div>
                 <button className="btn btn-outline-success" type="submit">Submit</button>
-                <div>
+                <div className={style.resultWrapper}>
                     {result && <p className={style.resultWrapperWithOutPvn}>Result without PVN: {result}</p>}
                     {resultWithPvn && <p className={style.resultWrapperWithPvn}>Result with PVN: {resultWithPvn}</p>}
+                    {nds && <p className={style.resultWrapperWithPvn}>PVN: {nds}</p>}
                 </div>
             </form>
            
