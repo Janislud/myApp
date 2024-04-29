@@ -1,7 +1,8 @@
 ﻿import { useEffect, useState } from 'react';
-import './App.css';
 import { axiosInstance } from "./config/axios";
 import { InputFields } from './components/InputsFields';
+import { Header } from './pages/Header';
+import { Footer } from './pages/Footer';
 
 
 function App() {
@@ -49,9 +50,11 @@ function App() {
 
     return (
         <div>
+            <Header/>
             <InputFields/>
             <h1>Message from Backend</h1>
             <p>{message}</p>
+            <Footer/>
         </div>
     );
 }

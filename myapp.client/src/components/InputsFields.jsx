@@ -1,5 +1,6 @@
 ﻿import { useState } from 'react';
 import { axiosInstance } from '../config/axios';
+import style from "../components/InputsFields.module.css";
 
 export const InputFields = () => {
     const [inputValues, setInputValues] = useState({
@@ -61,11 +62,12 @@ export const InputFields = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <main>
+            <form className={style.formWrapper} onSubmit={handleSubmit}>
                 <div>
-                    <label>Input 1:</label>
+                    <label className={style.labelWrapper}>Input 1 (Positive):</label>
                     <input
+                        className="form-control me-2"
                         type="text"
                         name="inputValue1"
                         value={inputValues.inputValue1}
@@ -74,8 +76,9 @@ export const InputFields = () => {
                     {errors.inputValue1 && <p style={{ color: 'red' }}>{errors.inputValue1}</p>}
                 </div>
                 <div>
-                    <label>Input 2 (Uppercase):</label>
+                    <label className={style.labelWrapper}>Input 2 (Uppercase):</label>
                     <input
+                        className="form-control me-2"
                         type="text"
                         name="inputValue2Upper"
                         value={inputValues.inputValue2Upper}
@@ -84,8 +87,9 @@ export const InputFields = () => {
                     {errors.inputValue2Upper && <p style={{ color: 'red' }}>{errors.inputValue2Upper}</p>}
                 </div>
                 <div>
-                    <label>Input 3 (Lowercase):</label>
+                    <label className={style.labelWrapper}>Input 3 (Lowercase):</label>
                     <input
+                        className="form-control me-2"
                         type="text"
                         name="inputValue3Lower"
                         value={inputValues.inputValue3Lower}
@@ -94,8 +98,9 @@ export const InputFields = () => {
                     {errors.inputValue3Lower && <p style={{ color: 'red' }}>{errors.inputValue3Lower}</p>}
                 </div>
                 <div>
-                    <label>Input 4 (Negative):</label>
+                    <label className={style.labelWrapper}>Input 4 (Negative):</label>
                     <input
+                        className="form-control me-2"
                         type="text"
                         name="inputValue4Negative"
                         value={inputValues.inputValue4Negative}
@@ -103,12 +108,13 @@ export const InputFields = () => {
                     />
                     {errors.inputValue4Negative && <p style={{ color: 'red' }}>{errors.inputValue4Negative}</p>}
                 </div>
-                <button type="submit">Submit</button>
+                <button className="btn btn-outline-success" type="submit">Submit</button>
+                <div>
+                    {result && <p className={style.resultWrapperWithOutPvn}>Result without PVN: {result}</p>}
+                    {resultWithPvn && <p className={style.resultWrapperWithPvn}>Result with PVN: {resultWithPvn}</p>}
+                </div>
             </form>
-            <div>
-                {result && <p>Result without PVN: {result}</p>}
-                {resultWithPvn && <p>Result with PVN: {resultWithPvn}</p>}
-            </div>
-        </div>
+           
+        </main>
     );
 };

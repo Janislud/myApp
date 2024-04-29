@@ -1,0 +1,42 @@
+.formWrapper {
+    align-items: center;
+    margin-top: 100px;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 150px;
+}
+
+.labelWrapper {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.btnSubmite {
+    background-color: blue;
+    border-radius: 50px;
+    width: 150px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+.btnSubmite:hover {
+    border-color: #646cff;
+}
+
+.btnSubmite:focus,
+.btnSubmite:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+.resultWrapperWithOutPvn {
+    color: red;
+}
+
+.resultWrapperWithPvn {
+    color:green;
+}
