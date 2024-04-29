@@ -80,8 +80,9 @@ export const InputFields = () => {
                     {errors.inputValue1 && <p style={{ color: 'red' }}>{errors.inputValue1}</p>}
                 </div>
                 <div>
-                    <label className={style.labelWrapper}>Input 2 (Uppercase):</label>
+                    <label className={style.labelWrapper}>Input 2:</label>
                     <input
+                        placeholder= "3 symbols - Uppercase"
                         className="form-control me-2"
                         type="text"
                         name="inputValue2Upper"
@@ -91,8 +92,9 @@ export const InputFields = () => {
                     {errors.inputValue2Upper && <p style={{ color: 'red' }}>{errors.inputValue2Upper}</p>}
                 </div>
                 <div>
-                    <label className={style.labelWrapper}>Input 3 (Lowercase):</label>
+                    <label className={style.labelWrapper}>Input 3:</label>
                     <input
+                        placeholder="3 symbols - Lowercase"
                         className="form-control me-2"
                         type="text"
                         name="inputValue3Lower"
@@ -102,8 +104,9 @@ export const InputFields = () => {
                     {errors.inputValue3Lower && <p style={{ color: 'red' }}>{errors.inputValue3Lower}</p>}
                 </div>
                 <div>
-                    <label className={style.labelWrapper}>Input 4 (Negative):</label>
+                    <label className={style.labelWrapper}>Input 4:</label>
                     <input
+                        placeholder=" Negative from -1 - -99999"
                         className="form-control me-2"
                         type="text"
                         name="inputValue4Negative"
