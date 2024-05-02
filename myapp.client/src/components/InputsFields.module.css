@@ -24,15 +24,6 @@
     transition: border-color 0.25s;
 }
 
-.btnSubmite:hover {
-    border-color: #646cff;
-}
-
-.btnSubmite:focus,
-.btnSubmite:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-}
-
 .resultWrapperWithOutPvn {
     color: red;
 }

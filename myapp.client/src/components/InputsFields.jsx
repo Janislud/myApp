@@ -11,7 +11,7 @@ export const InputFields = () => {
     });
     const [result, setResult] = useState(null);
     const [resultWithPvn, setResultWithPvn] = useState(null);
-    const [nds, setNds] = useState(null);
+    const [pvn, setPvn] = useState(null);
     const [errors, setErrors] = useState({});
 
     const handleChange = (event) => {
@@ -32,7 +32,7 @@ export const InputFields = () => {
                 setResult(data.result);
                 setResultWithPvn(data.resultWithPvn);
                 const netAmount = data.resultWithPvn - data.result;
-                setNds(netAmount);
+                setPvn(netAmount);
             } else {
                 console.error('Error:', response.statusText);
             }
@@ -44,19 +44,18 @@ export const InputFields = () => {
 
     const validateInputValues = (values) => {
         const errors = {};
-        // Проверка первого поля
         if (!/^\d+$/.test(values.inputValue1) || values.inputValue1 < 0 || values.inputValue1 > 99999) {
             errors.inputValue1 = 'Please enter a number between 0 and 99999.';
         }
-        // Проверка второго поля
+
         if (!/^[A-Z]{3}$/.test(values.inputValue2Upper)) {
             errors.inputValue2Upper = 'Please enter 3 uppercase letters.';
         }
-        // Проверка третьего поля
+
         if (!/^[a-z]{3}$/.test(values.inputValue3Lower)) {
             errors.inputValue3Lower = 'Please enter 3 lowercase letters.';
         }
-        // Проверка четвертого поля
+ 
         if (!/^-\d+$/.test(values.inputValue4Negative) || values.inputValue4Negative > -1 || values.inputValue4Negative < -99999) {
             errors.inputValue4Negative = 'Please enter a negative number between -1 and -99999.';
         }
@@ -118,8 +117,8 @@ export const InputFields = () => {
                 <button className="btn btn-outline-success" type="submit">Submit</button>
                 <div className={style.resultWrapper}>
                     {result && <p className={style.resultWrapperWithOutPvn}>Result without PVN: {result}</p>}
-                    {resultWithPvn && <p className={style.resultWrapperWithPvn}>Result with PVN: {resultWithPvn}</p>}
-                    {nds && <p className={style.resultWrapperWithPvn}>PVN: {nds}</p>}
+                    {resultWithPvn && <p className={style.resultWrapperWithOutPvn}>Result with PVN: {resultWithPvn}</p>}
+                    {pvn && <p className={style.resultWrapperWithPvn}>PVN: {pvn}</p>}
                 </div>
             </form>
            

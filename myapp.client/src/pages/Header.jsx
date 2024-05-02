@@ -12,9 +12,6 @@ export const Header = () => {
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="https://www.bitforit.lv/#company">About Company</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Link</a>
-                            </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Dropdown
@@ -25,9 +22,6 @@ export const Header = () => {
                                     <li><hr className="dropdown-divider"></hr></li>
                                     <li><a className="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
-                            </li>
-                            <li className="nav-item">
-                                {/* <a class="nav-link disabled" aria-disabled="true">Disabled</a> */}
                             </li>
                         </ul>
                         <form className="d-flex" role="search">
